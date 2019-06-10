@@ -229,6 +229,135 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/10/利用原生JS获得一个元素的兄弟元素（翻译）/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Joe Shen">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="MajorDong's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/10/利用原生JS获得一个元素的兄弟元素（翻译）/" itemprop="url">利用原生JS获得一个元素的兄弟元素（翻译）</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-06-10T14:58:11+08:00">
+                2019-06-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p><img src="https://upload-images.jianshu.io/upload_images/16311644-1e6992bc3a143186.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt></p>
+<p><a href="https://gomakethings.com/how-to-get-an-elements-siblings-with-vanilla-javascript/#getting-all-sibling-elements" target="_blank" rel="noopener">原文链接</a></p>
+<p>让我们来看看如何获得一个元素的所有兄弟元素。<br>比如，你已获得一个列表中的一项（一个<code>li</code>），可以采用什么方法得到这个列表中其它的（<code>li</code>）项。<code>jQuery</code>中的<code>siblings()</code>方法使这一操作十分容易。<br>除此之外，我们可以利用原生JavaScript轻松构造一个只有8行代码的辅助函数实现同一目标。</p>
+<h1 id="开始构造"><a href="#开始构造" class="headerlink" title="开始构造"></a>开始构造</h1><p>首先，创建一个辅助函数命为<code>getSiblings()</code><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var getSiblings = function(elem) &#123;</span><br><span class="line">  // Code goes here</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>现在，创建一个数组，我们要将每个兄弟元素推入其中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var getSiblings = function(elem) &#123;</span><br><span class="line">    var siblings = [];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p> 接下来，我们想获取我们的第一个兄弟元素，用一个列表来举例，我们想获取列表中的第一个<code>&lt;li&gt;</code>，我们已获得的<code>&lt;li&gt;</code>元素也属于这个列表。<br>我们将使用<code>.parentNode</code>属性来得到父元素列表，接着使用<code>.firstChlid</code>属性来得到这个列表的第一项。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var getSiblings = function(elem) &#123;</span><br><span class="line">    var siblings = []</span><br><span class="line">    var sibling = elem.parentNode.firstChild</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="获得所有的兄弟元素"><a href="#获得所有的兄弟元素" class="headerlink" title="获得所有的兄弟元素"></a>获得所有的兄弟元素</h1><p>现在，我们准备循环遍历每个兄弟元素并把它们推进我们的数组。<br>我们利用<code>for</code>循环来做这件事，在循环的每次迭代结束后，我们将使用<code>nextSibling</code>属性更新<code>sibling</code>的值为列表中下一个兄弟节点。<br>只要<code>sibling</code>存在（<code>Boolean</code> 为 <code>true</code>），我们将一直这个循环。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">var getSiblings = function (elem) &#123;</span><br><span class="line">    var siblings = []</span><br><span class="line">    var sibling = elem.parentNode.firstChild</span><br><span class="line">    for( ; sibling; sibling = sibling.nextsibling) &#123;</span><br><span class="line">        // Do something...</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在我们的循环中，我们想检查当前的<code>siblings</code>是否为已获得的<code>elem</code>元素，如果是我们就跳过当前这次循环。<br>同样我们也想确认当前的<code>siblings</code>是一个原元素节点，而不是一个字符文本或其它相似的怪异的东西。我们使用<code>nodeType</code>来检查。<br>否则，我们将<code>sibling</code>推入<code>siblings</code>数组中。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var getSiblings = function (elem) &#123;</span><br><span class="line">    var siblings = []</span><br><span class="line">    var sibling = elem.parentNode.firstChild</span><br><span class="line">    for( ; sibling; sibling = sibling.nextsibling) &#123;</span><br><span class="line">        if (sibling.nodeType !== 1 || sibling === elem)  continue;</span><br><span class="line">        siblings.push(sibling) </span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在最后，当循环结束时，我们将返回该数组<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var getSiblings = function (elem) &#123;</span><br><span class="line">    var siblings = []</span><br><span class="line">    var sibling = elem.parentNode.firstChild</span><br><span class="line">    for( ; sibling; sibling = sibling.nextsibling) &#123;</span><br><span class="line">        if (sibling.nodeType !== 1 || sibling === elem)  continue;</span><br><span class="line">        siblings.push(sibling) </span><br><span class="line">    &#125;</span><br><span class="line">    return siblings    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>你有可能像这样使用这个函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var elem = document.querySelector(&apos;#some-element&apos;)</span><br><span class="line">var siblings = getSibings(elem)</span><br></pre></td></tr></table></figure></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/02/28/http入门/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -840,7 +969,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
